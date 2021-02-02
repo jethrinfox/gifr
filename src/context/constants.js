@@ -1,0 +1,6 @@
+const ACTIONS = {
+  LOADING: "LOADING",
+  SET_TRENDING: "SET_TRENDING"
+}
+
+export default ACTIONS
