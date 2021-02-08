@@ -5,17 +5,81 @@
 html,
 body,
 #root {
-	height: 100vh;
+  height: 100vh;
 }
 
 .global-bg {
-	@apply bg-gray-800;
+  @apply bg-gray-800;
 }
 
 .global-title {
-	@apply text-white text-2xl font-bold leading-6 p-4 my-4;
+  @apply text-white text-2xl font-bold leading-6 p-4 my-4;
 }
 
 .grid-masonry {
-	grid-template-rows: masonry;
+  grid-template-rows: masonry;
+}
+
+.search-bar {
+  @apply mx-auto max-w-sm my-4 flex;
+}
+
+.search-bar input {
+  @apply flex-grow rounded-l-full p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white;
+}
+
+.search-bar button {
+  @apply px-8 rounded-r-full bg-yellow-400  text-gray-800 font-bold p-4 uppercase border-yellow-500 border-t border-b border-r;
+}
+
+.form-container {
+  @apply bg-white rounded pt-8;
+}
+
+.form {
+  @apply grid grid-cols-1 gap-6 px-6 py-10;
+}
+
+.form label {
+  @apply block;
+}
+
+.form label span {
+  @apply text-gray-700;
+}
+
+.form input {
+  @apply mt-0 block w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black;
+}
+
+.form button {
+  @apply rounded global-bg py-2 px-4 capitalize text-white;
+}
+
+.oauth-providers {
+  @apply flex flex-col;
+}
+
+.oauth-providers button {
+  @apply flex-grow global-bg py-2 px-4 capitalize text-white flex justify-center items-center transition;
+}
+
+.oauth-providers button svg {
+  @apply mr-2;
+}
+
+#google {
+  @apply hover:bg-red-500;
+}
+
+#facebook {
+  @apply hover:bg-blue-600;
+}
+
+#github {
+  @apply hover:bg-gray-50 hover:text-gray-800;
+}
+
+#anonymous {
+  @apply hover:bg-green-500;
 }
