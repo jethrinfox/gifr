@@ -6,7 +6,6 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 
-// TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAfBH7OD1DwOZzIWOujRZOC6QuVbRO52uE",
   authDomain: "gifr-jethrinfox.firebaseapp.com",

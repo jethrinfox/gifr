@@ -1,6 +1,7 @@
-const ACTIONS = {
+const GIF_ACTIONS = {
   LOADING: "LOADING",
-  SET_TRENDING: "SET_TRENDING"
-}
+  SET_TRENDING: "SET_TRENDING",
+  SET_SEARCHED: "SET_SEARCHED",
+};
 
-export default ACTIONS
+export default GIF_ACTIONS;
