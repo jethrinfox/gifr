@@ -2,32 +2,34 @@ import React, { useContext, useEffect } from "react";
 import GifList from "../../components/GifList";
 import { GifContext } from "../../context/GifContext";
 import OverlayFullPage from "../../components/OverlayFullPage";
+import { useParams } from "react-router-dom";
 import SearchInput from "../../components/SearchInput";
 
-const TrendingGifs = () => {
+const SearchGifs = () => {
   const {
     state: {
-      gifs: { trending },
+      gifs: { searched },
       isLoading,
     },
-    getTrending,
+    getByKeyword,
   } = useContext(GifContext);
+  const { keyword } = useParams();
 
-  useEffect(function () {
-    getTrending();
+  useEffect(() => {
+    getByKeyword(keyword);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [keyword]);
 
-  if (isLoading || !trending) {
+  if (isLoading || !searched) {
     return <OverlayFullPage />;
   }
 
   return (
     <div className="mx-auto">
       <SearchInput />
-      <GifList gifs={trending} />
+      <GifList gifs={searched} />
     </div>
   );
 };
 
-export default TrendingGifs;
+export default SearchGifs;
