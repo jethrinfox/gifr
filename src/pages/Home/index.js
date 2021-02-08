@@ -1,7 +1,7 @@
-import React from 'react'
-import Layout from '../../components/Layout'
-import TrendingGifs from './TrendingGifs'
-import { Helmet } from "react-helmet";
+import React from "react";
+import Layout from "../../components/Layout";
+import TrendingGifs from "./TrendingGifs";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   return (
@@ -14,7 +14,7 @@ const Home = () => {
         <TrendingGifs />
       </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

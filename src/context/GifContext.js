@@ -1,7 +1,8 @@
-import React, { useReducer } from 'react'
-import instance from '../api/request'
-import ACTIONS from './constants'
-import { reducer } from './GifReducer';
+import React, { useReducer } from "react";
+import getGifs from "services/getGifs";
+import getTrendingGifs from "services/getTrendingGifs";
+import ACTIONS from "./constants";
+import { reducer } from "./GifReducer";
 
 const initialState = {
   isLoading: false,
@@ -9,9 +10,8 @@ const initialState = {
   gifs: {
     trending: [],
     searched: [],
-  }
-}
-
+  },
+};
 
 // Create context
 export const GifContext = React.createContext(undefined);
@@ -20,34 +20,47 @@ export const GifContext = React.createContext(undefined);
 export const GifProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-
-  async function getTrending() {
+  async function getTrending(limit, rating, page) {
     dispatch({
       type: ACTIONS.LOADING,
-      payload: { isLoading: true }
-    })
+      payload: true,
+    });
     try {
-      const { data } = await instance.get("/gifs/trending", {
-        params: {
-          limit: 25,
-          rating: "r",
-        }
-      })
+      const gifs = await getTrendingGifs({ limit, rating, page });
       dispatch({
         type: ACTIONS.SET_TRENDING,
         payload: {
-          gifs: { trending: data.data },
-          isLoading: false
-        }
-      })
+          gifs,
+          isLoading: false,
+        },
+      });
     } catch (error) {
       console.error(error);
     }
   }
 
+  async function getByKeyword(keyword) {
+    dispatch({
+      type: ACTIONS.LOADING,
+      payload: true,
+    });
+    try {
+      const gifs = await getGifs({ keyword });
+      dispatch({
+        type: ACTIONS.SET_SEARCHED,
+        payload: {
+          gifs,
+          isLoading: false,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-  return <GifContext.Provider value={{ state, getTrending }}>{children}</GifContext.Provider>;
+  return (
+    <GifContext.Provider value={{ state, getTrending, getByKeyword }}>
+      {children}
+    </GifContext.Provider>
+  );
 };
-
-
-
