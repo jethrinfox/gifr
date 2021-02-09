@@ -20,42 +20,42 @@ export const GifContext = React.createContext(undefined);
 export const GifProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  async function getTrending(limit, rating, page) {
+  async function getTrending({ page = 0 } = {}) {
     dispatch({
       type: ACTIONS.LOADING,
       payload: true,
     });
-    try {
-      const gifs = await getTrendingGifs({ limit, rating, page });
-      dispatch({
-        type: ACTIONS.SET_TRENDING,
-        payload: {
-          gifs,
-          isLoading: false,
-        },
-      });
-    } catch (error) {
-      console.error(error);
-    }
+
+    getTrendingGifs({ page })
+      .then((nextGifs) => {
+        console.log("trending: ", state.gifs.trending.concat(nextGifs));
+        dispatch({
+          type: ACTIONS.SET_TRENDING,
+          payload: {
+            gifs: state.gifs.trending.concat(nextGifs),
+            isLoading: false,
+          },
+        });
+      })
+      .catch((err) => console.error(err));
   }
 
-  async function getByKeyword(keyword) {
+  async function getByKeyword({ keyword, page }) {
     dispatch({
       type: ACTIONS.LOADING,
       payload: true,
     });
-    try {
-      const gifs = await getGifs({ keyword });
-      dispatch({
-        type: ACTIONS.SET_SEARCHED,
-        payload: {
-          gifs,
-          isLoading: false,
-        },
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    getGifs({ keyword, page })
+      .then((nextGifs) => {
+        dispatch({
+          type: ACTIONS.SET_SEARCHED,
+          payload: {
+            gifs: state.gifs.searched.concat(nextGifs),
+            isLoading: false,
+          },
+        });
+      })
+      .catch((err) => console.error(err));
   }
 
   return (
