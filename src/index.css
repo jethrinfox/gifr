@@ -83,3 +83,11 @@ body,
 #anonymous {
   @apply hover:bg-green-500;
 }
+
+.trending-topics {
+  @apply my-6 grid grid-flow-row-dense grid-cols-6 mx-auto max-w-4xl gap-3;
+}
+
+.trending-term {
+  @apply text-white text-lg font-bold hover:text-purple-500 transition;
+}
