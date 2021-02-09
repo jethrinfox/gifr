@@ -10,12 +10,12 @@ import SearchInput from "../../components/SearchInput";
 const SearchGifs = () => {
   const { keyword } = useParams();
 
-  const { isLoading, searched, setPage } = useGifs({ keyword });
+  const { loading, searchedGifs, setPage } = useGifs({ keyword });
 
   const externalRef = useRef(null);
 
   const { isNearScreen } = useNearScreen({
-    externalRef: isLoading ? null : externalRef,
+    externalRef: loading ? null : externalRef,
     once: false,
   });
 
@@ -29,14 +29,14 @@ const SearchGifs = () => {
     if (isNearScreen) debounceHandleNextPage();
   }, [debounceHandleNextPage, isNearScreen]);
 
-  if (isLoading || !searched) {
+  if (loading || !searchedGifs) {
     return <OverlayFullPage />;
   }
 
   return (
     <div className="mx-auto">
       <SearchInput />
-      <GifList gifs={searched} />
+      <GifList gifs={searchedGifs} />
       <div ref={externalRef} />
     </div>
   );

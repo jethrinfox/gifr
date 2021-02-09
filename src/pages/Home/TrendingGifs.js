@@ -1,5 +1,5 @@
-import { useGifs } from "hooks/useGifs";
 import useNearScreen from "hooks/useNearScreen";
+import { useTrendingGifs } from "hooks/useTrendingGifs";
 import debounce from "just-debounce-it";
 import React, { useCallback, useEffect, useRef } from "react";
 import GifList from "../../components/GifList";
@@ -7,7 +7,7 @@ import OverlayFullPage from "../../components/OverlayFullPage";
 import SearchInput from "../../components/SearchInput";
 
 const TrendingGifs = () => {
-  const { isLoading, trending, setPage } = useGifs();
+  const { isLoading, trendingGifs, setPage } = useTrendingGifs();
 
   const externalRef = useRef(null);
 
@@ -26,14 +26,14 @@ const TrendingGifs = () => {
     if (isNearScreen) debounceHandleNextPage();
   }, [debounceHandleNextPage, isNearScreen]);
 
-  if (isLoading || !trending) {
+  if (isLoading || !trendingGifs) {
     return <OverlayFullPage />;
   }
 
   return (
     <div className="mx-auto">
       <SearchInput />
-      <GifList gifs={trending} />
+      <GifList gifs={trendingGifs} />
       <div ref={externalRef} />
     </div>
   );

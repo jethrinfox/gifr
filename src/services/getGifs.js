@@ -2,7 +2,7 @@ import request from "api/request";
 import fromApiResponseToGifs from "utils/fromApiResponseToGifs";
 
 export default async function getGifs({
-  limit = 8,
+  limit = 16,
   keyword = "",
   page = 0,
 } = {}) {
